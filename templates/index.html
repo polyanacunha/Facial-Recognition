@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        div{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            top: 50px;
+            gap: 20px;
+        }
+        button{
+            background-color: blueviolet;
+            border-radius: 10px;
+            height: 60px;
+            width: 100px;
+            border: none;
+            cursor: pointer;
+        }
+        body{
+            background-color: rgb(27, 27, 27);
+        }
+    </style>
+</head>
+<body>
+    <h1>Image processing Functions</h1>
+    <div>
+    <button onclick="startProcess('histogram')">Histogram</button>
+    <button onclick="startProcess('displacement')">displacement</button>
+    <button onclick="startProcess('enhance-sharpness')">Enhance Sharpness</button>
+    <button onclick="startProcess('periodic-signal')">Periodic Signal</button>
+    <button onclick="startProcess('blur-faces')">Blur faces</button>
+    <button onclick="startProcess('smile-detection')">Smile recognition</button>
+    <button onclick="startProcess('face-recognition')">Face recognition</button>
+    <button onclick="stopProcess()">Stop Current Process</button>
+    </div>
+    <script>
+        // function smileRecognition() {
+        //     fetch('/smile-detection', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         alert(data.message);
+        //     })
+        //     .catch(error => console.error('Error:', error));
+        // }
+
+        // function faceRecognition() {
+        //     fetch('/face-recognition', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         alert(data.message);
+        //     })
+        //     .catch(error => console.error('Error:', error));
+        // }
+
+        // function createHistogram() {
+        //     fetch('/histogram', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         alert(data.message);
+        //     })
+        //     .catch(error => console.error('Error:', error));
+        // }
+        // function displacement() {
+        //     fetch('/displacement', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         alert(data.message);
+        //     })
+        //     .catch(error => console.error('Error:', error));
+        // }
+        // function blurOnFaces() {
+        //     fetch('/blur-faces', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         alert(data.message);
+        //     })
+        //     .catch(error => console.error('Error:', error));
+        // }
+        // function enhanceSharpness() {
+        //     const data = {
+        //         image_path: './image_with_blur.jpg',
+        //         output_path: 'output.jpg',
+        //         sharpness_factor: 2.0
+        //     };
+
+        //     fetch('/enhance-sharpness', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify(data)
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => alert(data.message))
+        //     .catch(error => console.error('Error:', error));
+        // }
+        // function periodicSignal() {
+        //     fetch('/periodic-signal', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         alert(data.message);
+        //     })
+        //     .catch(error => console.error('Error:', error));
+        // }
+
+        let currentProcessName = ''; // This will keep track of the current running process
+
+    function startProcess(processName) {
+        currentProcessName = processName; // Update the current process name
+        fetch(`/start-process/${processName}`, { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function stopProcess() {
+        if (!currentProcessName) {
+            alert('No process is currently running.');
+            return;
+        }
+        const data = { process_name: currentProcessName };
+        fetch('/stop-process', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            currentProcessName = ''; // Reset the current process name
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    </script>
+</body>
+</html>

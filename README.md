@@ -103,3 +103,9 @@ depending on a black box library, [read my article](https://medium.com/@ageitgey
 # To have more information, go to the face_recognition lib repository 
 
 - https://github.com/ageitgey/face_recognition/tree/master
+
+# added library:
+pip install opencv-python-headless matplotlib numpy
+
+# run increase sharpness
+ python increase_sharpness.py ./image_with_blur.jpg output_image.jpg 2.0
